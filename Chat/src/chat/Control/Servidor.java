@@ -60,7 +60,7 @@ public class Servidor {
             conectado = true;
 
             ip = cliente.getInetAddress().getHostAddress();
-            jChat.TEXTO += "\nNova conexão com o cliente " + ip + " Porta:" + porta + "\n-------------------------\n";
+            jChat.TEXTO += "\nNova conexão com o cliente " + ip;
             jChat.jTxAMensagens.setText(jChat.TEXTO);
             
             jChat.conectadoServidor = true;
@@ -84,7 +84,7 @@ public class Servidor {
             entrada = new Scanner(cliente.getInputStream());
 
             while (entrada.hasNextLine()) {
-                jChat.TEXTO += ip + ": " + entrada.nextLine() + "\n ";
+                jChat.TEXTO += "\n " + ip + ": " + entrada.nextLine();
                 jChat.jTxAMensagens.setText(jChat.TEXTO);
             }
 
