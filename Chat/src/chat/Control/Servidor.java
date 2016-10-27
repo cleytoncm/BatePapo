@@ -22,21 +22,22 @@ public class Servidor {
     private boolean conectado;
     private ServerSocket servidor;
     private Scanner entrada;
-    private Socket cliente;
-    private String texto;
+    private String ip;
+    private Chat chat;
 
     public Servidor() {
         conectado = false;
     }
 
-    public void start() {
+    public void start(Chat c, Integer porta) {
         if (!conectado) {
             Thread conectando = new Thread(
                     new Runnable() {
                 @Override
                 public void run() {
-                    jChat.jBtnConectar.setText("Desconectar");
-                    conectar(Integer.parseInt(jChat.jTxtPorta.getText()));
+                    chat = c;
+                    jChat.jBtnConectar.setText("Conectado");
+                    conectar(porta);
                 }
             });
 
@@ -48,17 +49,25 @@ public class Servidor {
 
     private void conectar(Integer porta) {
         try {
-            texto = "Aguardando conexão na porta: " + porta;
-            jChat.jTxAMensagens.setText(texto);
+            jChat.TEXTO = "Aguardando conexão na porta: " + porta;
+            jChat.jTxAMensagens.setText(jChat.TEXTO);
 
             servidor = new ServerSocket(porta);
 
-            cliente = servidor.accept();
+            jChat.cliente = servidor.accept();
             conectado = true;
 
-            texto += "\nNova conexão com o cliente " + cliente.getInetAddress().getHostAddress() + "\n";
-            jChat.jTxAMensagens.setText(texto);
+            ip = jChat.cliente.getInetAddress().getHostAddress();
+            jChat.TEXTO += "\nNova conexão com o cliente " + ip + "\n------------------------------";
+            jChat.jTxAMensagens.setText(jChat.TEXTO);
 
+            if(jChat.jTxtIP.getText().isEmpty()){
+                jChat.jTxtIP.setText(ip);
+                porta = porta+1;
+                chat.conectarCliente(jChat.jTxtIP.getText(), porta);
+            }
+            
+            
             receberMensagem();
 
         } catch (IOException ex) {
@@ -69,11 +78,11 @@ public class Servidor {
     private void receberMensagem() {
         try {
 
-            entrada = new Scanner(cliente.getInputStream());
+            entrada = new Scanner(jChat.cliente.getInputStream());
 
             while (entrada.hasNextLine()) {
-                texto += "\n O cliente digitou: " + entrada.nextLine();
-                jChat.jTxAMensagens.setText(texto);
+                jChat.TEXTO += ip + ": " + entrada.nextLine() + "\n ";
+                jChat.jTxAMensagens.setText(jChat.TEXTO);
             }
 
             desconectar();
@@ -87,8 +96,8 @@ public class Servidor {
             if (conectado) {
                 conectado = false;
 
-                if (cliente.isConnected()) {
-                    cliente.close();
+                if (jChat.cliente.isConnected()) {
+                    jChat.cliente.close();
                 }
 
                 if (!servidor.isClosed()) {
@@ -96,8 +105,8 @@ public class Servidor {
                 }
 
                 jChat.jBtnConectar.setText("Desconectar");
-                texto += "O cliente desconectou";
-                jChat.jTxAMensagens.setText(texto);
+                jChat.TEXTO += "O cliente desconectou";
+                jChat.jTxAMensagens.setText(jChat.TEXTO);
             }
         } catch (IOException ex) {
             Logger.getLogger(jChat.class.getName()).log(Level.SEVERE, null, ex);

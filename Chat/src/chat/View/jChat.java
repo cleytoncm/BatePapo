@@ -5,7 +5,10 @@
  */
 package chat.View;
 
+import chat.Control.Chat;
+import chat.Control.Cliente;
 import chat.Control.Servidor;
+import java.net.Socket;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,11 +20,15 @@ public class jChat extends javax.swing.JFrame {
     /**
      * Creates new form jCliente
      */
-    Servidor servidor = new Servidor();
-
+    public static String TEXTO;
+    public static Socket cliente;
+    public static Socket servidor;
+    private Chat chat = new Chat();
+    
     public jChat() {
         initComponents();
         setLocationRelativeTo(this);
+        TEXTO = "";
     }
 
     /**
@@ -106,6 +113,11 @@ public class jChat extends javax.swing.JFrame {
 
         jBtnEnviar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jBtnEnviar.setText("Enviar");
+        jBtnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEnviarActionPerformed(evt);
+            }
+        });
 
         jTxAMensagem.setColumns(20);
         jTxAMensagem.setRows(5);
@@ -211,13 +223,18 @@ public class jChat extends javax.swing.JFrame {
         }else{
             if(jTxtIP.getText().isEmpty()){
                 jBtnConectar.setEnabled(false);
-                servidor.start();
+                chat.conectarServidor(Integer.parseInt(jTxtPorta.getText()));
             }else{
                 jBtnConectar.setEnabled(false);
+                chat.conectarCliente(jTxtIP.getText(), Integer.parseInt(jTxtPorta.getText()));
             }
         }
         
     }//GEN-LAST:event_jBtnConectarActionPerformed
+
+    private void jBtnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEnviarActionPerformed
+        chat.enviarMensagem(jTxAMensagem.getText());
+    }//GEN-LAST:event_jBtnEnviarActionPerformed
 
     /**
      * @param args the command line arguments
