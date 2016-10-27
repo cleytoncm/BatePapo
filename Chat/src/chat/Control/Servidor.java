@@ -59,16 +59,16 @@ public class Servidor {
             conectado = true;
 
             ip = cliente.getInetAddress().getHostAddress();
-            jChat.TEXTO += "\nNova conexão com o cliente " + ip + "\n------------------------------";
+            jChat.TEXTO += "\nNova conexão com o cliente " + ip + "\n-------------------------\n";
             jChat.jTxAMensagens.setText(jChat.TEXTO);
 
-            receberMensagem();
-            
             if(jChat.jTxtIP.getText().isEmpty()){
                 jChat.jTxtIP.setText(ip);
                 porta = porta+1;
                 chat.conectarCliente(jChat.jTxtIP.getText(), porta);
             }
+            
+            receberMensagem();
 
         } catch (IOException ex) {
             Logger.getLogger(jChat.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,8 +104,7 @@ public class Servidor {
                     servidor.close();
                 }
 
-                jChat.jBtnConectar.setText("Desconectar");
-                jChat.TEXTO += "O cliente desconectou";
+                jChat.TEXTO += "\nO cliente desconectou";
                 jChat.jTxAMensagens.setText(jChat.TEXTO);
             }
         } catch (IOException ex) {
