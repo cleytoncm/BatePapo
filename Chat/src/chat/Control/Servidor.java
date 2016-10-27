@@ -62,14 +62,13 @@ public class Servidor {
             jChat.TEXTO += "\nNova conexão com o cliente " + ip + "\n------------------------------";
             jChat.jTxAMensagens.setText(jChat.TEXTO);
 
+            receberMensagem();
+            
             if(jChat.jTxtIP.getText().isEmpty()){
                 jChat.jTxtIP.setText(ip);
                 porta = porta+1;
                 chat.conectarCliente(jChat.jTxtIP.getText(), porta);
             }
-            
-            
-            receberMensagem();
 
         } catch (IOException ex) {
             Logger.getLogger(jChat.class.getName()).log(Level.SEVERE, null, ex);
