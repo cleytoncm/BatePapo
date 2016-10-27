@@ -68,6 +68,7 @@ public class Cliente {
             saida.println(texto);
             jChat.TEXTO += "\n Eu: " + texto;
             jChat.jTxAMensagens.setText(jChat.TEXTO);
+            jChat.jTxAMensagem.setText("");
             
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);

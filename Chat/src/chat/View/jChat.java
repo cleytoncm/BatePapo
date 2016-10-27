@@ -280,7 +280,7 @@ public class jChat extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTxAMensagem;
+    public static javax.swing.JTextArea jTxAMensagem;
     public static javax.swing.JTextArea jTxAMensagens;
     public static javax.swing.JFormattedTextField jTxtIP;
     public static javax.swing.JTextField jTxtPorta;
