@@ -60,7 +60,7 @@ public class Servidor {
             conectado = true;
 
             ip = cliente.getInetAddress().getHostAddress();
-            jChat.TEXTO += "\nNova conexão com o cliente " + ip + "\n-------------------------\n";
+            jChat.TEXTO += "\nNova conexão com o cliente " + ip + " Porta:" + porta + "\n-------------------------\n";
             jChat.jTxAMensagens.setText(jChat.TEXTO);
 
             if(jChat.jTxtIP.getText().isEmpty()){

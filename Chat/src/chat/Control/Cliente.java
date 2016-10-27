@@ -49,7 +49,7 @@ public class Cliente {
 
             conectado = true;
 
-            jChat.TEXTO += "Conectado no servidor " + IP;
+            jChat.TEXTO += "Conectado no servidor " + IP + "Porta: " + porta;
             
             porta = porta+1;
             chat.conectarServidor(porta);
