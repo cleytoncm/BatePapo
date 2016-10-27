@@ -62,6 +62,8 @@ public class Servidor {
             ip = cliente.getInetAddress().getHostAddress();
             jChat.TEXTO += "\nNova conexão com o cliente " + ip + " Porta:" + porta + "\n-------------------------\n";
             jChat.jTxAMensagens.setText(jChat.TEXTO);
+            
+            jChat.conectadoServidor = true;
 
             if(jChat.jTxtIP.getText().isEmpty()){
                 jChat.jTxtIP.setText(ip);

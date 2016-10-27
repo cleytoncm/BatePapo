@@ -50,10 +50,12 @@ public class Cliente {
             conectado = true;
 
             jChat.TEXTO += "Conectado no servidor " + IP + "Porta: " + porta;
-            
-            porta = porta+1;
-            chat.conectarServidor(porta);
-            
+
+            if (!jChat.conectadoServidor) {
+                porta = porta + 1;
+                chat.conectarServidor(porta);
+            }
+
             jChat.jTxAMensagens.setText(jChat.TEXTO);
 
         } catch (IOException ex) {
@@ -64,12 +66,12 @@ public class Cliente {
     public void enviarMensagem(String texto) {
         try {
             saida = new PrintStream(cliente.getOutputStream());
-            
+
             saida.println(texto);
             jChat.TEXTO += "\n Eu: " + texto;
             jChat.jTxAMensagens.setText(jChat.TEXTO);
             jChat.jTxAMensagem.setText("");
-            
+
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }

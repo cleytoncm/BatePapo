@@ -19,12 +19,14 @@ public class jChat extends javax.swing.JFrame {
      * Creates new form jCliente
      */
     public static String TEXTO;
+    public static boolean conectadoServidor;
     private Chat chat = new Chat();
     
     public jChat() {
         initComponents();
         setLocationRelativeTo(this);
         TEXTO = "";
+        conectadoServidor =  false;
     }
 
     /**
