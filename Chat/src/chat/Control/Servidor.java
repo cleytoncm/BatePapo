@@ -49,6 +49,7 @@ public class Servidor {
     }
 
     private void conectar(Integer porta) {
+        Integer p2;
         try {
             jChat.TEXTO = "Aguardando conexão na porta: " + porta;
             jChat.jTxAMensagens.setText(jChat.TEXTO);
@@ -64,8 +65,8 @@ public class Servidor {
 
             if(jChat.jTxtIP.getText().isEmpty()){
                 jChat.jTxtIP.setText(ip);
-                porta = porta+1;
-                chat.conectarCliente(jChat.jTxtIP.getText(), porta);
+                p2 = porta+1;
+                chat.conectarCliente(jChat.jTxtIP.getText(), p2);
             }
             
             receberMensagem();
