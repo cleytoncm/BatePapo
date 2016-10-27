@@ -21,6 +21,7 @@ public class Servidor {
 
     private boolean conectado;
     private ServerSocket servidor;
+    private Socket cliente;
     private Scanner entrada;
     private String ip;
     private Chat chat;
@@ -54,10 +55,10 @@ public class Servidor {
 
             servidor = new ServerSocket(porta);
 
-            jChat.cliente = servidor.accept();
+            cliente = servidor.accept();
             conectado = true;
 
-            ip = jChat.cliente.getInetAddress().getHostAddress();
+            ip = cliente.getInetAddress().getHostAddress();
             jChat.TEXTO += "\nNova conexão com o cliente " + ip + "\n------------------------------";
             jChat.jTxAMensagens.setText(jChat.TEXTO);
 
@@ -78,7 +79,7 @@ public class Servidor {
     private void receberMensagem() {
         try {
 
-            entrada = new Scanner(jChat.cliente.getInputStream());
+            entrada = new Scanner(cliente.getInputStream());
 
             while (entrada.hasNextLine()) {
                 jChat.TEXTO += ip + ": " + entrada.nextLine() + "\n ";
@@ -96,8 +97,8 @@ public class Servidor {
             if (conectado) {
                 conectado = false;
 
-                if (jChat.cliente.isConnected()) {
-                    jChat.cliente.close();
+                if (cliente.isConnected()) {
+                    cliente.close();
                 }
 
                 if (!servidor.isClosed()) {

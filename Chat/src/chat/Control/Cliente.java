@@ -21,6 +21,7 @@ public class Cliente {
 
     private boolean conectado;
     private Scanner entrada;
+    private Socket cliente;
     private PrintStream saida;
     private Chat chat;
 
@@ -44,7 +45,7 @@ public class Cliente {
 
     private void conectar(String IP, Integer porta) {
         try {
-            jChat.cliente = new Socket(IP, porta);
+            cliente = new Socket(IP, porta);
 
             conectado = true;
 
@@ -62,7 +63,7 @@ public class Cliente {
 
     public void enviarMensagem(String texto) {
         try {
-            saida = new PrintStream(jChat.cliente.getOutputStream());
+            saida = new PrintStream(cliente.getOutputStream());
             
             saida.println(texto);
             jChat.TEXTO += "\n Eu: " + texto;

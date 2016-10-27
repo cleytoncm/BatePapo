@@ -6,8 +6,6 @@
 package chat.View;
 
 import chat.Control.Chat;
-import chat.Control.Cliente;
-import chat.Control.Servidor;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 
@@ -21,8 +19,6 @@ public class jChat extends javax.swing.JFrame {
      * Creates new form jCliente
      */
     public static String TEXTO;
-    public static Socket cliente;
-    public static Socket servidor;
     private Chat chat = new Chat();
     
     public jChat() {
