@@ -6,7 +6,6 @@
 package chat;
 
 import chat.View.jChat;
-import chat.View.jServidor;
 
 /**
  *

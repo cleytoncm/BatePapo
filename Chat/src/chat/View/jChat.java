@@ -5,8 +5,8 @@
  */
 package chat.View;
 
-import chat.Control.Chat;
 import chat.Control.Servidor;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,11 +17,11 @@ public class jChat extends javax.swing.JFrame {
     /**
      * Creates new form jCliente
      */
-    Chat chat = new Chat();
     Servidor servidor = new Servidor();
 
     public jChat() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -52,6 +52,7 @@ public class jChat extends javax.swing.JFrame {
         jTxtServidorPorta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Conexão"));
         jPanel1.setToolTipText("");
@@ -204,6 +205,17 @@ public class jChat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConectarActionPerformed
+        if(jTxtPorta.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insirá o número da porta!");
+            jTxtPorta.requestFocus();
+        }else{
+            if(jTxtIP.getText().isEmpty()){
+                jBtnConectar.setEnabled(false);
+                servidor.start();
+            }else{
+                jBtnConectar.setEnabled(false);
+            }
+        }
         
     }//GEN-LAST:event_jBtnConectarActionPerformed
 
@@ -244,7 +256,7 @@ public class jChat extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnConectar;
+    public static javax.swing.JButton jBtnConectar;
     private javax.swing.JButton jBtnEnviar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -256,9 +268,9 @@ public class jChat extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTxAMensagem;
-    private javax.swing.JTextArea jTxAMensagens;
-    private javax.swing.JFormattedTextField jTxtIP;
-    private javax.swing.JTextField jTxtPorta;
+    public static javax.swing.JTextArea jTxAMensagens;
+    public static javax.swing.JFormattedTextField jTxtIP;
+    public static javax.swing.JTextField jTxtPorta;
     private javax.swing.JFormattedTextField jTxtServidorIP;
     private javax.swing.JTextField jTxtServidorPorta;
     // End of variables declaration//GEN-END:variables

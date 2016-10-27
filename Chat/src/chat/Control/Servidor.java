@@ -5,10 +5,7 @@ package chat.Control;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import chat.View.jServidor;
-import static chat.View.jServidor.jBtnConectar;
-import static chat.View.jServidor.jTxtLogs;
-import static chat.View.jServidor.jTxtPorta;
+import chat.View.jChat;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -38,36 +35,34 @@ public class Servidor {
                     new Runnable() {
                 @Override
                 public void run() {
-                    jServidor.jBtnConectar.setText("Desconectar");
-                    conectar(Integer.parseInt(jTxtPorta.getText()));
+                    jChat.jBtnConectar.setText("Desconectar");
+                    conectar(Integer.parseInt(jChat.jTxtPorta.getText()));
                 }
             });
 
             conectando.start();
         } else {
-            jBtnConectar.setText("Conectar");
             desconectar();
         }
     }
 
     private void conectar(Integer porta) {
         try {
-
             texto = "Aguardando conexão na porta: " + porta;
-            jTxtLogs.setText(texto);
+            jChat.jTxAMensagens.setText(texto);
 
             servidor = new ServerSocket(porta);
-            
+
             cliente = servidor.accept();
             conectado = true;
 
             texto += "\nNova conexão com o cliente " + cliente.getInetAddress().getHostAddress() + "\n";
-            jTxtLogs.setText(texto);
+            jChat.jTxAMensagens.setText(texto);
 
             receberMensagem();
 
         } catch (IOException ex) {
-            Logger.getLogger(jServidor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jChat.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -78,7 +73,7 @@ public class Servidor {
 
             while (entrada.hasNextLine()) {
                 texto += "\n O cliente digitou: " + entrada.nextLine();
-                jTxtLogs.setText(texto);
+                jChat.jTxAMensagens.setText(texto);
             }
 
             desconectar();
@@ -100,13 +95,12 @@ public class Servidor {
                     servidor.close();
                 }
 
-                jServidor.jBtnConectar.setText("Desconectar");
+                jChat.jBtnConectar.setText("Desconectar");
                 texto += "O cliente desconectou";
-                jTxtLogs.setText(texto);
+                jChat.jTxAMensagens.setText(texto);
             }
         } catch (IOException ex) {
-            Logger.getLogger(jServidor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jChat.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }
